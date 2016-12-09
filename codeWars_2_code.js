@@ -1,6 +1,6 @@
 
 
-peopleInLine = [25,50];
+peopleInLine = [25,50,25,50,100];
 
 var add = function(iterator, object){
    if(isNaN(object[iterator])){
@@ -9,6 +9,7 @@ var add = function(iterator, object){
   object[iterator] += 1;
   }
 };
+
 
 function tickets(peopleInLine){
 //create a cashRegister, access array of customers, and keep track of total amount
@@ -22,7 +23,10 @@ function tickets(peopleInLine){
   //keep track of how many of each bill is in the register
     add(bill, register);
     var denominations = Object.keys(register);
-    console.log(register);
+    denominations.sort(function(a, b) {
+    return a + b;
+    });
+
   //how much is owed back to the customer?
     var ticketPrice = 25;
     var pricePaid = customer[i];
@@ -33,26 +37,37 @@ function tickets(peopleInLine){
       continue;
           //if register owes is there even enough money in the register to pay out change?
     }else if(total >= changeOwed){
-      //are there enough of each bill to make change?
+      //are there enough bills of each denomination to make change? How could we check the LARGEST denomination first?
       for (let i = 0; i< denominations.length; i++){
         if(changeOwed%denominations[i] ===0){
           billQuantity = register[denominations[i]];
-
           if(changeOwed <= (denominations[i]*billQuantity)){
-            continue;
+            //take the change out of the register
+                billQuantity = billQuantity - (changeOwed/denominations[i]);
+                console.log(`you now have ${billQuantity} ${denominations[i]} bc I took out ${(changeOwed/denominations[i])} to make ${changeOwed}`)
+                //checkfor the next guest's change
+                continue;
           }else{
-            is there enough if we subtract what we have and query the next denomination?
+            if(changeOwed%denominations[i] ===0){
+              if(changeOwed >= (denominations[i]*billQuantity)){
+
+                  }else{
+                  changeOwed = (changeOwed - (denominations[i]*billQuantity));
+                  console.log(changeOwed);
+                }
+            }
           }
         }
       }
     }
 
   }
+console.log(denominations);
 return 'YES';
-console.log(register);
 }
 
 tickets([peopleInLine]);
+
 
 
 // console.log(changeOwed,changeOwed%denominations[i] ===0);
