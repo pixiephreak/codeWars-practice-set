@@ -44,7 +44,7 @@ function tickets(peopleInLine){
           if(changeOwed <= (denominations[i]*billQuantity)){
             //take the change out of the register
                 billQuantity = billQuantity - (changeOwed/denominations[i]);
-                console.log(`you now have ${billQuantity} ${denominations[i]} bc I took out ${(changeOwed/denominations[i])} to make ${changeOwed}`)
+                register[denominations[i]] = billQuantity;
                 //checkfor the next guest's change
                 continue;
           }else{
@@ -62,7 +62,8 @@ function tickets(peopleInLine){
     }
 
   }
-console.log(denominations);
+
+console.log(register);
 return 'YES';
 }
 
@@ -71,9 +72,3 @@ tickets([peopleInLine]);
 
 
 // console.log(changeOwed,changeOwed%denominations[i] ===0);
-
-
-
-
-
-
